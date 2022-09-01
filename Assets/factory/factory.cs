@@ -1,0 +1,289 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEditor.PackageManager;
+using UnityEngine;
+
+
+public class factory : MonoBehaviour
+{
+    // 声明共享的共有变量
+    public GameObject nomalCube;  //  方块的prefabs，需要在start前加载
+
+    public Dictionary<string, GameObject> nameCubeDict;
+    public List<string> names;
+    public List<string> left_click_status;
+    System.Random id_dunction = new System.Random();
+
+    public int status_index;
+    public string lastActive;
+
+    public Color default_cube;
+    public Color activate_cube;
+
+
+    // Awake is called before the first frame Start
+    private void Awake()
+    {
+        // 共享变量的赋值
+        nomalCube = (GameObject)Resources.Load("nomalCube");  // 加载预制件
+
+        nameCubeDict = new Dictionary<string, GameObject>();
+        names = new List<string>();
+        left_click_status = new List<string>() { "generate", "select" };
+        status_index = 0;
+        lastActive = null;
+
+        default_cube = Color.white;
+        activate_cube = Color.blue;
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        // 从磁盘中恢复上一次正常结束时的状态
+        // 防止空状态，通过temp暂存，以防后续index报错
+        string temp_dict = PlayerPrefs.GetString("nameCubeDict", "");
+        string temp_list = PlayerPrefs.GetString("names", "");
+        string temp_str = PlayerPrefs.GetString("lastActive", "");
+        Dictionary<string, cubeInfo> keyValuePairs = new Dictionary<string, cubeInfo>();
+
+        if (!temp_dict.Equals("") && !temp_list.Equals(""))
+        {
+            string[] temp_info = temp_dict.Split('\n');
+            foreach (var item in temp_info)
+            {
+                cubeInfo keyValue = JsonUtility.FromJson<cubeInfo>(item);
+                Debug.Log(keyValue);
+                keyValuePairs[keyValue.name] = keyValue;
+            }
+
+            string[] split_temp_list = temp_list.Split('\n');
+            foreach (var item in split_temp_list)
+            {
+                names.Add(item.ToString());
+                GameObject temp = generate_cube(keyValuePairs[item.ToString()].x, keyValuePairs[item.ToString()].y, keyValuePairs[item.ToString()].z, keyValuePairs[item.ToString()].name);
+                Debug.Log("Successfully generated " + item.ToString());
+                nameCubeDict[item.ToString()] = temp;
+            }
+        }
+
+        if (!temp_str.Equals(""))
+        {
+            lastActive = temp_str;
+            colorChange(nameCubeDict[lastActive], "activate");
+        }
+    }
+
+    void RaySelected(string cube_name, bool cube_isactivate)
+    {
+        if (cube_isactivate)
+        {
+            if (!lastActive.Equals(null))
+            {
+                colorChange(nameCubeDict[lastActive]);
+            }
+            lastActive = cube_name;
+            colorChange(nameCubeDict[lastActive], "activate");
+        }
+        else
+        {
+            colorChange(nameCubeDict[cube_name]);
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (lastActive != null)
+        {
+            // colorChange(nameCubeDict[lastActive], "activate");
+        }
+
+        // 单测代码块
+        //if (Input.GetKeyDown(KeyCode.RightCommand)) { getMouseRayObject(); }
+
+        if (Input.GetKeyDown(KeyCode.RightShift))
+        {
+            status_index++;
+            status_index %= left_click_status.Count;
+        }
+
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (lastActive != null)
+            {
+                colorChange(nameCubeDict[lastActive]);
+            }
+
+            switch (left_click_status[status_index])
+            {
+                case "generate":
+                    // 射线碰撞，返回碰撞到的坐标
+                    Vector3 current_left_click = getMouseRayWorldVect();
+                    //generate_cube(current_left_click.x, (current_left_click.y > 0.5) ? current_left_click.y : 0.5f, current_left_click.z);
+                    if (!current_left_click.Equals(new Vector3(-1, -1, -1)))
+                    {
+                        long temp_id;
+                        temp_id = System.DateTime.Now.Ticks;
+
+                        // +0.5是由于方块大小，会导致穿模
+                        GameObject temp = generate_cube(current_left_click.x, current_left_click.y + 0.5f, current_left_click.z, temp_id.ToString());
+
+                        lastActive = temp_id.ToString();
+                        names.Add(lastActive);
+                        nameCubeDict[lastActive] = temp;
+
+                        colorChange(nameCubeDict[lastActive], "activate");
+                    }
+                    break;
+                case "select":
+                    break;
+            }
+
+
+        }
+
+        //  方块删除，检测鼠标右键，当前index下的方块进行一个删除的大动作，并从方块列表中删除该方块
+        if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.L))
+        {
+            if (lastActive != null)
+            {
+                Destroy(nameCubeDict[lastActive]);
+                nameCubeDict.Remove(lastActive);
+                names.Remove(lastActive);
+                if (names.Count > 0)
+                {
+                    lastActive = names[names.Count - 1];
+                    colorChange(nameCubeDict[lastActive], "activate");
+                }
+                else
+                {
+                    lastActive=null;
+                }
+            }
+        }
+
+        // 队列左移，选择对应方块；若处于初始的方块则不再移动
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            if (lastActive != null)
+            {
+                colorChange(nameCubeDict[lastActive]);
+            }
+
+            if (names.Count > 0)
+            {
+                int index = names.IndexOf(lastActive);
+                lastActive = names[(index == 0)?index:index-1];
+            }
+
+            colorChange(nameCubeDict[lastActive], "activate");
+        }
+
+        // 队列右移，选择对应方块；若处于最新的方块则不再移动
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            if (lastActive != null)
+            {
+                colorChange(nameCubeDict[lastActive]);
+            }
+
+            if (names.Count > 0)
+            {
+                int index = names.IndexOf(lastActive);
+                lastActive = names[(index == names.Count-1) ? index : index + 1];
+            }
+
+            colorChange(nameCubeDict[lastActive], "activate");
+        }
+
+    }
+
+
+    // 当程序正常退出时进行的必要程序
+    public void OnApplicationQuit()
+    {
+        List<string> save_list = new List<string>();
+        foreach (var item in nameCubeDict)
+        {
+            cubeInfo temp = new cubeInfo();
+            temp.x = item.Value.transform.position.x;
+            temp.y = item.Value.transform.position.y;
+            temp.z = item.Value.transform.position.z;
+            temp.name = item.Key;
+            save_list.Add(JsonUtility.ToJson(temp).ToString());
+        }
+        // 通过playerprefs进行存储
+        PlayerPrefs.SetString("nameCubeDict", string.Join("\n", save_list));
+        PlayerPrefs.SetString("names", string.Join("\n", names));
+        PlayerPrefs.SetString("lastActive", lastActive);
+        PlayerPrefs.Save();
+    }
+
+    // 生成方块代码
+    GameObject generate_cube(float x, float y, float z, string name)
+    {
+        // 从预制体实例化一个对象
+        GameObject temp = UnityEngine.Object.Instantiate(nomalCube);
+        //Debug.Log("实例化"+ Time.frameCount);
+        temp.transform.position = new Vector3(x, y, z);  // 设置其初始值
+        temp.GetComponent<cube>().id = name;
+
+        temp.GetComponent<cube>().events.CubeChange.AddListener(RaySelected);
+        return temp;
+    }
+
+    // 射线检测，获取鼠标点击的当前平面坐标
+    Vector3 getMouseRayWorldVect()
+    {
+        // 指定主相机向当前鼠标位置发射射线
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        // 声明hit变量用以存储碰撞信息
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit))
+        {
+            return hit.point;
+        }
+        else // 返回值兼容，由于返回值不兼容null
+        {
+            return new Vector3(-1, -1, -1);
+        }
+        
+    }
+
+    // 获取鼠标世界坐标
+    Vector3 getMouseWorldVect()
+    {
+        Vector3 mouse_p = Input.mousePosition;
+        Vector3 screen_p = Camera.main.WorldToScreenPoint(transform.position);
+        mouse_p.z = screen_p.z;
+        Vector3 mouse_world_p = Camera.main.ScreenToWorldPoint(mouse_p);
+        return mouse_world_p;
+    }
+
+    // 修改材料材质的颜色
+    void colorChange(GameObject current, string tobetype = "default")
+    {
+        // 恢复默认颜色
+        if (tobetype == "default")
+        {
+            current.GetComponent<MeshRenderer>().material.SetColor("_Color", default_cube);
+        }
+        // 调成指定的激活颜色
+        else
+        {
+            current.GetComponent<MeshRenderer>().material.SetColor("_Color", activate_cube);
+        }
+    }
+
+}
+
+// 自定义可叠戴结构体，用作生成json
+[System.Serializable]
+public class cubeInfo {
+    public float x;
+    public float y;
+    public float z;
+    public string name;
+}
