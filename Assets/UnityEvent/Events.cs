@@ -5,5 +5,5 @@ using UnityEngine;
 public class Events
 {
     public UnityEvent<string, bool> CubeChange = new UnityEvent<string, bool>();
-    //public UnityEvent<T0> MouseDrag = new UnityEvent<>();
+    public UnityEvent<int> StatusChange = new UnityEvent<int>();
 }

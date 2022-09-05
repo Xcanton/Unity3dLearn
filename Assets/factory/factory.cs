@@ -11,7 +11,7 @@ public class factory : MonoBehaviour
 
     public Dictionary<string, GameObject> nameCubeDict;
     public List<string> names;
-    public List<string> left_click_status;
+    public Status_enum status_;
     System.Random id_dunction = new System.Random();
 
     public int status_index;
@@ -29,7 +29,7 @@ public class factory : MonoBehaviour
 
         nameCubeDict = new Dictionary<string, GameObject>();
         names = new List<string>();
-        left_click_status = new List<string>() { "generate", "select" };
+        status_ = new Status_enum();
         status_index = 0;
         lastActive = null;
 
@@ -73,6 +73,9 @@ public class factory : MonoBehaviour
             colorChange(nameCubeDict[lastActive], "activate");
             nameCubeDict[lastActive].GetComponent<cube>().status = true;
         }
+
+        GameObject.Find("Canvas/Menu_Image/Status_Dropdown").GetComponent<StatusDropdown>().events.StatusChange.AddListener(dropdownchange);
+        
     }
 
     void RaySelected(string cube_name, bool cube_isactivate)
@@ -109,7 +112,7 @@ public class factory : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.RightShift))
         {
             status_index++;
-            status_index %= left_click_status.Count;
+            status_index %= System.Enum.GetNames(status_.GetType()).Length;
         }
 
 
@@ -121,9 +124,9 @@ public class factory : MonoBehaviour
                 nameCubeDict[lastActive].GetComponent<cube>().status = false;
             }
 
-            switch (left_click_status[status_index])
+            switch ((Status_enum)int.Parse(status_index.ToString()))
             {
-                case "generate":
+                case Status_enum.generate:
                     // 射线碰撞，返回碰撞到的坐标
                     Vector3 current_left_click = getMouseRayWorldVect();
                     //generate_cube(current_left_click.x, (current_left_click.y > 0.5) ? current_left_click.y : 0.5f, current_left_click.z);
@@ -142,7 +145,7 @@ public class factory : MonoBehaviour
                         colorChange(nameCubeDict[lastActive], "activate");
                     }
                     break;
-                case "select":
+                case Status_enum.select:
                     break;
             }
 
@@ -251,9 +254,9 @@ public class factory : MonoBehaviour
             nameCubeDict[lastActive].GetComponent<cube>().status = false;
         }
 
-        switch (left_click_status[status_index])
+        switch ((Status_enum)int.Parse(status_index.ToString()))
         {
-            case "generate":
+            case Status_enum.generate:
                 Debug.Log("status is generate");
                 long temp_id;
                 temp_id = System.DateTime.Now.Ticks;
@@ -270,7 +273,7 @@ public class factory : MonoBehaviour
 
                 colorChange(nameCubeDict[lastActive], "activate");
                 break;
-            case "select":
+            case Status_enum.select:
                 Debug.Log("status is select");
                 break;
         }
@@ -305,7 +308,8 @@ public class factory : MonoBehaviour
     }
 
     // 修改材料材质的颜色
-    void colorChange(GameObject current, string tobetype = "default")
+    void colorChange(GameObject current, string
+        tobetype = "default")
     {
         // 恢复默认颜色
         if (tobetype == "default")
@@ -317,6 +321,11 @@ public class factory : MonoBehaviour
         {
             current.GetComponent<MeshRenderer>().material.SetColor("_Color", activate_cube);
         }
+    }
+
+    void dropdownchange(int indexd)
+    {
+        status_index = indexd;
     }
 
 }

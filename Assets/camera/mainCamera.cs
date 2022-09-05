@@ -21,8 +21,12 @@ public class mainCamera : MonoBehaviour
 
         // 镜头向下倾斜45度
         Vector3 temp =  GameObject.Find("Factory").transform.position;
-        Debug.Log(temp);
         transform.RotateAround(temp, Vector3.right, 45);
+
+        //Debug.Log(GameObject.Find("Canvas/Menu_Image").GetComponent<RectTransform>().sizeDelta);
+        //Debug.Log(GameObject.Find("Canvas/Menu_Image").GetComponent<RectTransform>().rect);
+        //Debug.Log(GameObject.Find("Canvas/Menu_Image").GetComponent<RectTransform>().offsetMax);
+        //Debug.Log(GameObject.Find("Canvas/Menu_Image").GetComponent<RectTransform>().offsetMin);
     }
 
     // Update is called once per frame
@@ -74,8 +78,11 @@ public class mainCamera : MonoBehaviour
         float yright = Screen.height - current_diff[1];
 
         // 镜头左右移动
-        distance = (-5 <= x_move && x_move <= 5)?(xleft < effect_pi_range || xright < effect_pi_range) ? current_diff[0] : 0f: (x_move < 0) ? (xright < effect_pi_range) ? current_diff[0] : 0 : (xleft < effect_pi_range) ? current_diff[0] : 0;
-        
+
+        float menu_wide = GameObject.Find("Canvas/Menu_Image").GetComponent<RectTransform>().rect.width;
+        float menu_x = Camera.main.WorldToScreenPoint(GameObject.Find("Canvas/Menu_Image").GetComponent<Transform>().position).x;
+        distance = (-5 <= x_move && x_move <= 5)?( (menu_wide < xleft && xleft < menu_wide + effect_pi_range) || xright < effect_pi_range) ? current_diff[0] : 0f: (x_move < 0) ? (xright < effect_pi_range) ? current_diff[0] : 0 : (xleft < effect_pi_range) ? current_diff[0] : 0;
+        //xleft < effect_pi_range
         if (distance != 0)
         {
             // 由于摄像机并未左右倾斜，所以左右移动的坐标方向与相机方向一致
@@ -85,6 +92,11 @@ public class mainCamera : MonoBehaviour
         }
         x_move += distance * 0.1f;
 
+        // 获取左侧菜单栏宽度
+        //Debug.Log(GameObject.Find("Canvas/Menu_Image").GetComponent<RectTransform>().sizeDelta);
+        //Debug.Log(GameObject.Find("Canvas/Menu_Image").GetComponent<RectTransform>().rect);
+        //Debug.Log(GameObject.Find("Canvas/Menu_Image").GetComponent<RectTransform>().offsetMax);
+        //Debug.Log(GameObject.Find("Canvas/Menu_Image").GetComponent<RectTransform>().offsetMin);
         // 镜头前后移动
         distance = (-5 <= y_move && y_move <= 5)?(yleft < effect_pi_range || yright < effect_pi_range) ? current_diff[1] : 0f: (y_move < 0) ? (yright < effect_pi_range) ? current_diff[1] : 0 : (yleft < effect_pi_range) ? current_diff[1] : 0;
         
