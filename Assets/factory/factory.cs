@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor.PackageManager;
 using UnityEngine;
 
@@ -75,7 +76,6 @@ public class factory : MonoBehaviour
         }
 
         GameObject.Find("Canvas/Menu_Image/Status_Dropdown").GetComponent<StatusDropdown>().events.StatusChange.AddListener(dropdownchange);
-        
     }
 
     void RaySelected(string cube_name, bool cube_isactivate)
@@ -113,6 +113,7 @@ public class factory : MonoBehaviour
         {
             status_index++;
             status_index %= System.Enum.GetNames(status_.GetType()).Length;
+            GameObject.Find("Canvas/Menu_Image/Status_Dropdown").GetComponent<UnityEngine.UI.Dropdown>().value = status_index;
         }
 
 
@@ -155,21 +156,7 @@ public class factory : MonoBehaviour
         //  方块删除，检测鼠标右键，当前index下的方块进行一个删除的大动作，并从方块列表中删除该方块
         if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.L))
         {
-            if (lastActive != null)
-            {
-                Destroy(nameCubeDict[lastActive]);
-                nameCubeDict.Remove(lastActive);
-                names.Remove(lastActive);
-                if (names.Count > 0)
-                {
-                    lastActive = names[names.Count - 1];
-                    colorChange(nameCubeDict[lastActive], "activate");
-                }
-                else
-                {
-                    lastActive=null;
-                }
-            }
+            DeleteCubeFunc();
         }
 
         // 队列左移，选择对应方块；若处于初始的方块则不再移动
@@ -231,6 +218,30 @@ public class factory : MonoBehaviour
         PlayerPrefs.Save();
     }
 
+    void DeleteCubeFunc(string str = null)
+    {
+        Debug.Log(str);
+        if (string.IsNullOrEmpty(str))
+        {
+            str = lastActive;
+        }
+        if (str != null)
+        {
+            Destroy(nameCubeDict[str]);
+            nameCubeDict.Remove(str);
+            names.Remove(str);
+            if (names.Count > 0)
+            {
+                lastActive = names[names.Count - 1];
+                colorChange(nameCubeDict[lastActive], "activate");
+            }
+            else
+            {
+                lastActive = null;
+            }
+        }
+    }
+
     // 生成方块代码
     GameObject generate_cube(float x, float y, float z, string name)
     {
@@ -277,6 +288,43 @@ public class factory : MonoBehaviour
                 Debug.Log("status is select");
                 break;
         }
+    }
+
+    public GameObject outer_generate_return(float x = 0, float y = 0, float z = 0)
+    {
+        if (lastActive != null)
+        {
+            Debug.Log("last activate is not null");
+            colorChange(nameCubeDict[lastActive]);
+            nameCubeDict[lastActive].GetComponent<cube>().status = false;
+        }
+
+        switch ((Status_enum)int.Parse(status_index.ToString()))
+        {
+            case Status_enum.generate:
+                Debug.Log("status is generate");
+                long temp_id;
+                temp_id = System.DateTime.Now.Ticks;
+                Debug.Log("cube id got");
+
+                // +0.5是由于方块大小，会导致穿模
+                GameObject temp = generate_cube(0f, 0.5f, 0f, temp_id.ToString());
+                Debug.Log("cub instantiated");
+
+                lastActive = temp_id.ToString();
+                names.Add(lastActive);
+                nameCubeDict[lastActive] = temp;
+                Debug.Log("cube add");
+
+                colorChange(nameCubeDict[lastActive], "activate");
+                return temp;
+                break;
+            case Status_enum.select:
+                Debug.Log("status is select");
+                
+                break;
+        }
+        return null;
     }
 
     // 射线检测，获取鼠标点击的当前平面坐标
@@ -326,6 +374,18 @@ public class factory : MonoBehaviour
     void dropdownchange(int indexd)
     {
         status_index = indexd;
+    }
+
+    public void ViewPointItemClicked(string str)
+    {
+        colorChange(nameCubeDict[lastActive]);
+        colorChange(nameCubeDict[str], "activate");
+        lastActive = str;
+    }
+
+    public void itemDelete(string str)
+    {
+        DeleteCubeFunc(str);
     }
 
 }
