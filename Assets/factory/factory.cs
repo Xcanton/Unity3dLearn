@@ -71,6 +71,7 @@ public class factory : MonoBehaviour
         {
             lastActive = temp_str;
             colorChange(nameCubeDict[lastActive], "activate");
+            nameCubeDict[lastActive].GetComponent<cube>().status = true;
         }
     }
 
@@ -81,13 +82,16 @@ public class factory : MonoBehaviour
             if (!lastActive.Equals(null))
             {
                 colorChange(nameCubeDict[lastActive]);
+                nameCubeDict[lastActive].GetComponent<cube>().status = false;
             }
             lastActive = cube_name;
             colorChange(nameCubeDict[lastActive], "activate");
+            nameCubeDict[lastActive].GetComponent<cube>().status = true;
         }
         else
         {
             colorChange(nameCubeDict[cube_name]);
+            nameCubeDict[lastActive].GetComponent<cube>().status = false;
         }
     }
 
@@ -114,6 +118,7 @@ public class factory : MonoBehaviour
             if (lastActive != null)
             {
                 colorChange(nameCubeDict[lastActive]);
+                nameCubeDict[lastActive].GetComponent<cube>().status = false;
             }
 
             switch (left_click_status[status_index])
@@ -170,6 +175,7 @@ public class factory : MonoBehaviour
             if (lastActive != null)
             {
                 colorChange(nameCubeDict[lastActive]);
+                nameCubeDict[lastActive].GetComponent<cube>().status = false;
             }
 
             if (names.Count > 0)
@@ -187,6 +193,7 @@ public class factory : MonoBehaviour
             if (lastActive != null)
             {
                 colorChange(nameCubeDict[lastActive]);
+                nameCubeDict[lastActive].GetComponent<cube>().status = false;
             }
 
             if (names.Count > 0)
@@ -229,9 +236,44 @@ public class factory : MonoBehaviour
         //Debug.Log("实例化"+ Time.frameCount);
         temp.transform.position = new Vector3(x, y, z);  // 设置其初始值
         temp.GetComponent<cube>().id = name;
+        temp.GetComponent<cube>().status = true;
 
         temp.GetComponent<cube>().events.CubeChange.AddListener(RaySelected);
         return temp;
+    }
+
+    public void outer_generate(float x = 0, float y = 0, float z = 0)
+    {
+        if (lastActive != null)
+        {
+            Debug.Log("last activate is not null");
+            colorChange(nameCubeDict[lastActive]);
+            nameCubeDict[lastActive].GetComponent<cube>().status = false;
+        }
+
+        switch (left_click_status[status_index])
+        {
+            case "generate":
+                Debug.Log("status is generate");
+                long temp_id;
+                temp_id = System.DateTime.Now.Ticks;
+                Debug.Log("cube id got");
+
+                // +0.5是由于方块大小，会导致穿模
+                GameObject temp = generate_cube(0f, 0.5f, 0f, temp_id.ToString());
+                Debug.Log("cub instantiated");
+
+                lastActive = temp_id.ToString();
+                names.Add(lastActive);
+                nameCubeDict[lastActive] = temp;
+                Debug.Log("cube add");
+
+                colorChange(nameCubeDict[lastActive], "activate");
+                break;
+            case "select":
+                Debug.Log("status is select");
+                break;
+        }
     }
 
     // 射线检测，获取鼠标点击的当前平面坐标

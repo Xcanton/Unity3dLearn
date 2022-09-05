@@ -55,12 +55,13 @@
   <ItemGroup>
     <Compile Include="Assets\test.cs" />
     <Compile Include="Assets\cube\movement.cs" />
-    <Compile Include="Assets\factory\factory.cs" />
-    <Compile Include="Assets\camera\mainCamera.cs" />
-    <Compile Include="Assets\cube\cube.cs" />
     <Compile Include="Assets\UnityEvent\Events.cs" />
     <Compile Include="Assets\UnityEvent\broadcast.cs" />
     <Compile Include="Assets\UnityEvent\Supervisor.cs" />
+    <Compile Include="Assets\cube\cube.cs" />
+    <Compile Include="Assets\factory\factory.cs" />
+    <Compile Include="Assets\camera\mainCamera.cs" />
+    <Compile Include="Assets\ui\Create.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
