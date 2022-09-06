@@ -53,6 +53,7 @@
     <UnityVersion>2020.2.6f1c1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Assets\ui\ScrollViewItem.cs" />
     <Compile Include="Assets\test.cs" />
     <Compile Include="Assets\cube\movement.cs" />
     <Compile Include="Assets\factory\factory_enum.cs" />
@@ -64,8 +65,9 @@
     <Compile Include="Assets\cube\cube.cs" />
     <Compile Include="Assets\factory\factory.cs" />
     <Compile Include="Assets\camera\mainCamera.cs" />
-    <Compile Include="Assets\ui\Delete.cs" />
-    <Compile Include="Assets\ui\ScrollViewItem.cs" />
+    <Compile Include="Assets\ui\ContentControl.cs" />
+    <Compile Include="Assets\ui\MessBox.cs" />
+    <Compile Include="Assets\ui\MessBoxReal.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

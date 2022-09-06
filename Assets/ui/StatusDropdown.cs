@@ -29,6 +29,12 @@ public class StatusDropdown : MonoBehaviour
 
         // 下拉框有参监听
         dropdown.onValueChanged.AddListener((int index) => dropdownItemChanged(index));
+
+        // 
+        events.StatusChange.AddListener(GameObject.Find("Factory").GetComponent<factory>().dropdownchange);
+
+        //
+        GameObject.Find("Factory").GetComponent<factory>().events.dropdownChange.AddListener((int value) => dropdown.value = value);
     }
 
     // Update is called once per frame

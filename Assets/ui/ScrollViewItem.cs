@@ -6,6 +6,9 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
+using Common;
+using static UnityEngine.Networking.UnityWebRequest;
+
 public class ScrollViewItem : MonoBehaviour, IPointerClickHandler
 {
     public Events events = new Events();
@@ -14,9 +17,6 @@ public class ScrollViewItem : MonoBehaviour, IPointerClickHandler
     // Start is called before the first frame update
     void Start()
     {
-        GameObject temp = GameObject.Find("Factory").GetComponent<factory>().outer_generate_return();
-        transform.Find("Image/idText").GetComponent<Text>().text = temp.GetComponent<cube>().id;
-        transform.Find("Image/nameText").GetComponent<Text>().text = temp.GetComponent<cube>().name;
         leftClick.AddListener(new UnityAction(ButtonLeftClick));
 
 
@@ -24,16 +24,31 @@ public class ScrollViewItem : MonoBehaviour, IPointerClickHandler
         btn.GetComponentInChildren<Text>().text = "Delete";
         //btn.onClick.RemoveAllListeners();
         btn.onClick.AddListener(OnClick);
-        events.itemDelete.AddListener(GameObject.Find("Factory").GetComponent<factory>().itemDelete);
-        events.itemClicked.AddListener(GameObject.Find("Factory").GetComponent<factory>().ViewPointItemClicked);
+
+        //GameObject.Find("Factory").GetComponent<factory>().events.itemDelete.AddListener(GameObject.Find("Factory").GetComponent<factory>().itemDelete);
+        //GameObject.Find("Factory").GetComponent<factory>().events.itemClicked.AddListener(GameObject.Find("Factory").GetComponent<factory>().ViewPointItemClicked);
+
+        GameObject.Find("Factory").GetComponent<factory>().events.factoryDestory.AddListener(deleteSelfItem);
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            leftClick?.Invoke();
+            int a;
+            int b;
+            int c;
+            MessageBox.Show("请输入方块坐标");
+            MessageBox.confim_vec = (int a, int b, int c) =>
+            {
+                GameObject.Find("Factory").GetComponent<factory>().moveCube(new Vector3(a, b, c), transform.Find("Image/idText").GetComponent<Text>().text);
+                Debug.Log("移动完成");
+            };
+            //MessageBox.confim = () => { Debug.Log(1); };
+            leftClick.Invoke();
         }
+
+
     }
 
     // Update is called once per frame
@@ -43,17 +58,24 @@ public class ScrollViewItem : MonoBehaviour, IPointerClickHandler
 
     private void ButtonLeftClick()
     {
-        events.itemClicked.Invoke(transform.Find("Image/idText").GetComponent<Text>().text);
-        Debug.Log("called");
+        GameObject.Find("Factory").GetComponent<factory>().ViewPointItemClicked(transform.Find("Image/idText").GetComponent<Text>().text);
+    }
+
+    private void deleteSelfItem(string str)
+    {
+        if (transform.Find("Image/idText").GetComponent<Text>().text.Equals(str))
+        {
+            Destroy(gameObject);
+        }
     }
 
     void OnClick()
     {
-        Debug.Log("start to destroy");
-        Debug.Log(transform.parent.parent.gameObject);
-        Destroy(transform.parent.parent.gameObject);
-        Debug.Log("successfully destroy");
-        events.itemDelete.Invoke(transform.Find("Image/idText").GetComponent<Text>().text);
+        GameObject.Find("Factory").GetComponent<factory>().itemDelete(transform.Find("Image/idText").GetComponent<Text>().text);
+        //GameObject.Find("Factory").GetComponent<factory>().events.itemDelete.Invoke(transform.Find("Image/idText").GetComponent<Text>().text);
+        Debug.Log("destroy cube");
+        Destroy(gameObject);
+        Debug.Log("destory item");
     }
 
 }

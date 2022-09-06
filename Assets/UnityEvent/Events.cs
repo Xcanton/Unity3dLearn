@@ -9,4 +9,10 @@ public class Events
     public UnityEvent<int> CurrentDelete = new UnityEvent<int>();
     public UnityEvent<string> itemClicked = new UnityEvent<string> ();
     public UnityEvent<string> itemDelete = new UnityEvent<string>();
+    public UnityEvent<int> dropdownChange = new UnityEvent<int>();
+
+    public UnityEvent<string, string> factoryGenerate = new UnityEvent<string, string> ();
+    public UnityEvent<string> factoryDestory = new UnityEvent<string>();
+
+    public UnityEvent<Vector3> cubeChangePosition = new UnityEvent<Vector3>();
 }

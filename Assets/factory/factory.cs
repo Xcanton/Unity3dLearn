@@ -20,6 +20,9 @@ public class factory : MonoBehaviour
 
     public Color default_cube;
     public Color activate_cube;
+    public Events events = new Events();
+
+    public bool able_generate = true;
 
 
     // Awake is called before the first frame Start
@@ -54,7 +57,6 @@ public class factory : MonoBehaviour
             foreach (var item in temp_info)
             {
                 cubeInfo keyValue = JsonUtility.FromJson<cubeInfo>(item);
-                Debug.Log(keyValue);
                 keyValuePairs[keyValue.name] = keyValue;
             }
 
@@ -63,7 +65,6 @@ public class factory : MonoBehaviour
             {
                 names.Add(item.ToString());
                 GameObject temp = generate_cube(keyValuePairs[item.ToString()].x, keyValuePairs[item.ToString()].y, keyValuePairs[item.ToString()].z, keyValuePairs[item.ToString()].name);
-                Debug.Log("Successfully generated " + item.ToString());
                 nameCubeDict[item.ToString()] = temp;
             }
         }
@@ -75,7 +76,6 @@ public class factory : MonoBehaviour
             nameCubeDict[lastActive].GetComponent<cube>().status = true;
         }
 
-        GameObject.Find("Canvas/Menu_Image/Status_Dropdown").GetComponent<StatusDropdown>().events.StatusChange.AddListener(dropdownchange);
     }
 
     void RaySelected(string cube_name, bool cube_isactivate)
@@ -113,7 +113,7 @@ public class factory : MonoBehaviour
         {
             status_index++;
             status_index %= System.Enum.GetNames(status_.GetType()).Length;
-            GameObject.Find("Canvas/Menu_Image/Status_Dropdown").GetComponent<UnityEngine.UI.Dropdown>().value = status_index;
+            events.dropdownChange.Invoke(status_index);
         }
 
 
@@ -142,6 +142,7 @@ public class factory : MonoBehaviour
                         lastActive = temp_id.ToString();
                         names.Add(lastActive);
                         nameCubeDict[lastActive] = temp;
+
 
                         colorChange(nameCubeDict[lastActive], "activate");
                     }
@@ -220,14 +221,16 @@ public class factory : MonoBehaviour
 
     void DeleteCubeFunc(string str = null)
     {
-        Debug.Log(str);
         if (string.IsNullOrEmpty(str))
         {
             str = lastActive;
         }
         if (str != null)
         {
+            Debug.Log(str);
             Destroy(nameCubeDict[str]);
+            events.factoryDestory.Invoke(str);
+
             nameCubeDict.Remove(str);
             names.Remove(str);
             if (names.Count > 0)
@@ -251,6 +254,8 @@ public class factory : MonoBehaviour
         temp.transform.position = new Vector3(x, y, z);  // 设置其初始值
         temp.GetComponent<cube>().id = name;
         temp.GetComponent<cube>().status = true;
+
+        events.factoryGenerate.Invoke(name,temp.name);
 
         temp.GetComponent<cube>().events.CubeChange.AddListener(RaySelected);
         return temp;
@@ -330,11 +335,12 @@ public class factory : MonoBehaviour
     // 射线检测，获取鼠标点击的当前平面坐标
     Vector3 getMouseRayWorldVect()
     {
+        
         // 指定主相机向当前鼠标位置发射射线
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         // 声明hit变量用以存储碰撞信息
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit) && able_generate)
         {
             return hit.point;
         }
@@ -371,7 +377,7 @@ public class factory : MonoBehaviour
         }
     }
 
-    void dropdownchange(int indexd)
+    public void dropdownchange(int indexd)
     {
         status_index = indexd;
     }
@@ -386,6 +392,11 @@ public class factory : MonoBehaviour
     public void itemDelete(string str)
     {
         DeleteCubeFunc(str);
+    }
+
+    public void moveCube(Vector3 vect, string name)
+    {
+        nameCubeDict[name].transform.position = vect;
     }
 
 }
