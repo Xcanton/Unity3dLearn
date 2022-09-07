@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEditor.PackageManager;
+using UnityEditor.UIElements;
 using UnityEngine;
 
 public class cube : MonoBehaviour
@@ -12,6 +13,8 @@ public class cube : MonoBehaviour
     public bool status;
 
     public float speed; // ÒÆ¶¯ËÙ¶È
+    public UnityEngine.UI.Text nameLabel;
+    public GameObject nvas;
 
     private void Awake()
     {
@@ -41,6 +44,13 @@ public class cube : MonoBehaviour
         {
             movementControl();
         }
+
+        Vector3 namepos = Camera.main.WorldToScreenPoint(this.transform.position);
+        namepos.y += 1;
+        //nvas.transform.position = namepos;
+        nvas.transform.forward = Camera.main.transform.forward;
+
+        nameLabel.GetComponent<UnityEngine.UI.Text>().text = transform.name.ToString();
     }
 
     void getMouseRayObject()
