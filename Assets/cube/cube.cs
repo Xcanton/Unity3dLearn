@@ -32,7 +32,9 @@ public class cube : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            Debug.Log("方块检测到鼠标左键摁下");
             getMouseRayObject();
+            Debug.Log("方块左键事件完成");
         }
 
         if (status)
@@ -47,8 +49,11 @@ public class cube : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
         {
+            Debug.Log("击中");
             Transform target_object = hit.collider.transform;
 
+            Debug.Log(target_object);
+            Debug.Log(transform);
             if (target_object == transform)
             {
                 events.CubeChange.Invoke(id, true);

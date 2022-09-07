@@ -21,6 +21,8 @@ public class MessBox : MonoBehaviour
         title = GameObject.Find("Title").GetComponent<Text>();
         Sure.onClick.AddListener(MessageBox.Sure);
         Cancle.onClick.AddListener(MessageBox.Cancle);
+        Sure.transform.Find("Text").GetComponent<Text>().text = "确认";
+        Cancle.transform.Find("Text").GetComponent<Text>().text = "取消";
     }
 
     // Update is called once per frame

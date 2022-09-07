@@ -35,14 +35,11 @@ public class ScrollViewItem : MonoBehaviour, IPointerClickHandler
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            int a;
-            int b;
-            int c;
-            MessageBox.Show("请输入方块坐标");
-            MessageBox.confim_vec = (int a, int b, int c) =>
+            Debug.Log(GameObject.Find("Factory").GetComponent<factory>().getCubePos(transform.Find("Image/idText").GetComponent<Text>().text));
+            MessageBox.Show("请输入方块坐标", GameObject.Find("Factory").GetComponent<factory>().getCubePos(transform.Find("Image/idText").GetComponent<Text>().text));
+            MessageBox.confim_vec = (float a, float b, float c) =>
             {
                 GameObject.Find("Factory").GetComponent<factory>().moveCube(new Vector3(a, b, c), transform.Find("Image/idText").GetComponent<Text>().text);
-                Debug.Log("移动完成");
             };
             //MessageBox.confim = () => { Debug.Log(1); };
             leftClick.Invoke();
@@ -54,6 +51,7 @@ public class ScrollViewItem : MonoBehaviour, IPointerClickHandler
     // Update is called once per frame
     void Update()
     {
+        transform.Find("Image/positionText").GetComponent<Text>().text = GameObject.Find("Factory").GetComponent<factory>().getCubePos(transform.Find("Image/idText").GetComponent<Text>().text).ToString();
     }
 
     private void ButtonLeftClick()

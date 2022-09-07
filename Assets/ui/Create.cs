@@ -1,3 +1,4 @@
+using Common;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,9 +21,13 @@ public class Create : MonoBehaviour
 
     private void OnClick()
     {
-        Debug.Log("Button Clicked");
-        GameObject.Find("Factory").GetComponent<factory>().outer_generate();
-        Debug.Log("Function Finished");
+        MessageBox.Show("ÇëÊäÈë·½¿é×ø±ê");
+        MessageBox.confim_vec = (float a, float b, float c) =>
+        {
+            //GameObject.Find("Factory").GetComponent<factory>().moveCube(new Vector3(a, b, c), transform.Find("Image/idText").GetComponent<Text>().text);
+            GameObject.Find("Factory").GetComponent<factory>().outer_generate(a,b,c);
+        };
+        
     }
 
 }

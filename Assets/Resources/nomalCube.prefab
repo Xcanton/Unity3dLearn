@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8503302902425397017}
   - component: {fileID: 8503302902425397016}
   - component: {fileID: 8503302902425397095}
+  - component: {fileID: 2276581623050936711}
   - component: {fileID: 913058950920264948}
   m_Layer: 0
   m_Name: nomalCube
@@ -96,6 +97,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2276581623050936711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8503302902425397093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2aa21843145334e3fa8605161e91a937, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
 --- !u!114 &913058950920264948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,8 +122,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e56d06c8e356fd9439862f05483f53b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: 
+  id: 
   status: 0
   speed: 0
-  default_cube: {r: 0, g: 0, b: 0, a: 0}
-  activate_cube: {r: 0, g: 0, b: 0, a: 0}

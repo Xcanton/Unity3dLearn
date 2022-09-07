@@ -5,7 +5,7 @@ using UnityEngine.UI;
 namespace Common
 {
     public delegate void Confim();
-    public delegate void Confim_vec(int a, int b, int c);
+    public delegate void Confim_vec(float a, float b, float c);
     public class MessageBox
     {
         static GameObject Messagebox;
@@ -21,7 +21,6 @@ namespace Common
             Messagebox.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
             Messagebox.GetComponent<RectTransform>().offsetMin = Vector2.zero;
             Messagebox.GetComponent<RectTransform>().offsetMax = Vector2.zero;
-            Time.timeScale = 1;
             Messagebox.SetActive(true);
             GameObject.Find("Factory").GetComponent<factory>().able_generate = false;
         }
@@ -34,9 +33,30 @@ namespace Common
             Messagebox.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
             Messagebox.GetComponent<RectTransform>().offsetMin = Vector2.zero;
             Messagebox.GetComponent<RectTransform>().offsetMax = Vector2.zero;
-            Time.timeScale = 1;
             Messagebox.SetActive(true);
             GameObject.Find("Factory").GetComponent<factory>().able_generate = false;
+        }
+        public static void Show(string title, Vector3 pos)
+        {
+            TitleStr = title;
+
+            Messagebox = (GameObject)Resources.Load("Prefab/Background");
+            Messagebox = GameObject.Instantiate(Messagebox, GameObject.Find("Canvas").transform) as GameObject;
+            Messagebox.transform.localScale = new Vector3(1, 1, 1);
+            Messagebox.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
+            Messagebox.GetComponent<RectTransform>().offsetMin = Vector2.zero;
+            Messagebox.GetComponent<RectTransform>().offsetMax = Vector2.zero;
+            Messagebox.SetActive(true);
+
+            Messagebox.transform.Find("MessageBox/InputboxGroup/Text_x/InputField_x").GetComponent<InputField>().text = pos[0].ToString();
+            Messagebox.transform.Find("MessageBox/InputboxGroup/Text_y/InputField_y").GetComponent<InputField>().text = pos[1].ToString();
+            Messagebox.transform.Find("MessageBox/InputboxGroup/Text_z/InputField_z").GetComponent<InputField>().text = pos[2].ToString();
+            GameObject.Find("Factory").GetComponent<factory>().able_generate = false;
+
+            Messagebox.transform.Find("MessageBox/InputboxGroup/Text_x").GetComponent<Text>().text = "请输入x坐标";
+            Messagebox.transform.Find("MessageBox/InputboxGroup/Text_y").GetComponent<Text>().text = "请输入y坐标";
+            Messagebox.transform.Find("MessageBox/InputboxGroup/Text_z").GetComponent<Text>().text = "请输入z坐标";
+            Messagebox.transform.Find("MessageBox/Content/Text").GetComponent<Text>().text = TitleStr;
         }
         public static void  Sure()
         {
@@ -46,12 +66,11 @@ namespace Common
                 string b = Messagebox.transform.Find("MessageBox/InputboxGroup/Text_y/InputField_y").GetComponent<InputField>().text;
                 string c = Messagebox.transform.Find("MessageBox/InputboxGroup/Text_z/InputField_z").GetComponent<InputField>().text;
 
-                confim_vec(int.Parse(a), int.Parse(b), int.Parse(c));
+                confim_vec(float.Parse(a), float.Parse(b), float.Parse(c));
                 Debug.Log("自定义方法结束");
                 GameObject.Destroy(Messagebox);
                 Debug.Log("Destroy");
                 TitleStr = "标题";
-                Time.timeScale = 0;
 
                 GameObject.Find("Factory").GetComponent<factory>().able_generate = true;
             }
@@ -61,7 +80,6 @@ namespace Common
             Result = 2;
             GameObject.Destroy(Messagebox);
             TitleStr = "标题";
-            Time.timeScale = 0;
             GameObject.Find("Factory").GetComponent<factory>().able_generate = true;
         }
     }

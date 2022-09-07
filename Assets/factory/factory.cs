@@ -279,7 +279,7 @@ public class factory : MonoBehaviour
                 Debug.Log("cube id got");
 
                 // +0.5是由于方块大小，会导致穿模
-                GameObject temp = generate_cube(0f, 0.5f, 0f, temp_id.ToString());
+                GameObject temp = generate_cube(x, y, z, temp_id.ToString());
                 Debug.Log("cub instantiated");
 
                 lastActive = temp_id.ToString();
@@ -340,6 +340,8 @@ public class factory : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         // 声明hit变量用以存储碰撞信息
         RaycastHit hit;
+        Debug.Log(able_generate);
+        Debug.Log(Physics.Raycast(ray, out hit));
         if (Physics.Raycast(ray, out hit) && able_generate)
         {
             return hit.point;
@@ -397,6 +399,11 @@ public class factory : MonoBehaviour
     public void moveCube(Vector3 vect, string name)
     {
         nameCubeDict[name].transform.position = vect;
+    }
+
+    public Vector3 getCubePos(string name)
+    {
+        return nameCubeDict[name].transform.position;
     }
 
 }
