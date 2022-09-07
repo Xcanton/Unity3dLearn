@@ -64,7 +64,7 @@ public class factory : MonoBehaviour
             foreach (var item in split_temp_list)
             {
                 names.Add(item.ToString());
-                GameObject temp = generate_cube(keyValuePairs[item.ToString()].x, keyValuePairs[item.ToString()].y, keyValuePairs[item.ToString()].z, keyValuePairs[item.ToString()].name);
+                GameObject temp = generate_cube(keyValuePairs[item.ToString()].x, keyValuePairs[item.ToString()].y, keyValuePairs[item.ToString()].z, keyValuePairs[item.ToString()].name, keyValuePairs[item.ToString()].str);
                 nameCubeDict[item.ToString()] = temp;
             }
         }
@@ -210,6 +210,7 @@ public class factory : MonoBehaviour
             temp.y = item.Value.transform.position.y;
             temp.z = item.Value.transform.position.z;
             temp.name = item.Key;
+            temp.str = nameCubeDict[item.Key].transform.name;
             save_list.Add(JsonUtility.ToJson(temp).ToString());
         }
         // 通过playerprefs进行存储
@@ -261,6 +262,22 @@ public class factory : MonoBehaviour
         return temp;
     }
 
+    GameObject generate_cube(float x, float y, float z, string name, string str)
+    {
+        // 从预制体实例化一个对象
+        GameObject temp = UnityEngine.Object.Instantiate(nomalCube);
+        //Debug.Log("实例化"+ Time.frameCount);
+        temp.transform.position = new Vector3(x, y, z);  // 设置其初始值
+        temp.GetComponent<cube>().id = name;
+        temp.GetComponent<cube>().status = true;
+
+        events.factoryGenerate.Invoke(name, temp.name);
+
+        temp.GetComponent<cube>().events.CubeChange.AddListener(RaySelected);
+        temp.transform.name = str;
+        return temp;
+    }
+
     public void outer_generate(float x = 0, float y = 0, float z = 0)
     {
         if (lastActive != null)
@@ -295,6 +312,46 @@ public class factory : MonoBehaviour
         }
     }
 
+    public void outer_generate(float x = 0, float y = 0, float z = 0, string str = null)
+    {
+        if (lastActive != null)
+        {
+            Debug.Log("last activate is not null");
+            colorChange(nameCubeDict[lastActive]);
+            nameCubeDict[lastActive].GetComponent<cube>().status = false;
+        }
+
+        switch ((Status_enum)int.Parse(status_index.ToString()))
+        {
+            case Status_enum.generate:
+                Debug.Log("status is generate");
+                long temp_id;
+                temp_id = System.DateTime.Now.Ticks;
+                Debug.Log("cube id got");
+
+                // +0.5是由于方块大小，会导致穿模
+                GameObject temp = generate_cube(x, y, z, temp_id.ToString());
+                Debug.Log("cub instantiated");
+
+                lastActive = temp_id.ToString();
+                names.Add(lastActive);
+                nameCubeDict[lastActive] = temp;
+                Debug.Log("cube add");
+
+                colorChange(nameCubeDict[lastActive], "activate");
+
+                Debug.Log(str);
+                if (!string.IsNullOrEmpty(str))
+                {
+                    Debug.Log("改名字");
+                    temp.transform.name = str;
+                }
+                break;
+            case Status_enum.select:
+                Debug.Log("status is select");
+                break;
+        }
+    }
     public GameObject outer_generate_return(float x = 0, float y = 0, float z = 0)
     {
         if (lastActive != null)
@@ -401,9 +458,20 @@ public class factory : MonoBehaviour
         nameCubeDict[name].transform.position = vect;
     }
 
+    public void moveCube(Vector3 vect, string name, string str)
+    {
+        nameCubeDict[name].transform.position = vect;
+        nameCubeDict[name].name = str;
+    }
+
     public Vector3 getCubePos(string name)
     {
         return nameCubeDict[name].transform.position;
+    }
+
+    public string getCubeName(string name)
+    {
+        return nameCubeDict[name].transform.name;
     }
 
 }
@@ -415,4 +483,5 @@ public class cubeInfo {
     public float y;
     public float z;
     public string name;
+    public string str;
 }

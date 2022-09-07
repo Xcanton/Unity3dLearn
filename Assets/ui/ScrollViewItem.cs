@@ -36,10 +36,10 @@ public class ScrollViewItem : MonoBehaviour, IPointerClickHandler
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             Debug.Log(GameObject.Find("Factory").GetComponent<factory>().getCubePos(transform.Find("Image/idText").GetComponent<Text>().text));
-            MessageBox.Show("请输入方块坐标", GameObject.Find("Factory").GetComponent<factory>().getCubePos(transform.Find("Image/idText").GetComponent<Text>().text));
-            MessageBox.confim_vec = (float a, float b, float c) =>
+            MessageBox.Show("请输入方块坐标", GameObject.Find("Factory").GetComponent<factory>().getCubePos(transform.Find("Image/idText").GetComponent<Text>().text), transform.Find("Image/nameText").GetComponent<Text>().text);
+            MessageBox.confim_vec = (float a, float b, float c, string str) =>
             {
-                GameObject.Find("Factory").GetComponent<factory>().moveCube(new Vector3(a, b, c), transform.Find("Image/idText").GetComponent<Text>().text);
+                GameObject.Find("Factory").GetComponent<factory>().moveCube(new Vector3(a, b, c), transform.Find("Image/idText").GetComponent<Text>().text, str);
             };
             //MessageBox.confim = () => { Debug.Log(1); };
             leftClick.Invoke();
@@ -52,6 +52,7 @@ public class ScrollViewItem : MonoBehaviour, IPointerClickHandler
     void Update()
     {
         transform.Find("Image/positionText").GetComponent<Text>().text = GameObject.Find("Factory").GetComponent<factory>().getCubePos(transform.Find("Image/idText").GetComponent<Text>().text).ToString();
+        transform.Find("Image/nameText").GetComponent<Text>().text = GameObject.Find("Factory").GetComponent<factory>().getCubeName(transform.Find("Image/idText").GetComponent<Text>().text);
     }
 
     private void ButtonLeftClick()
