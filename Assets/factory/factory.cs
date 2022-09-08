@@ -4,6 +4,7 @@ using TMPro;
 using UnityEditor.PackageManager;
 using UnityEngine;
 
+using DeleteConfirm;
 
 public class factory : MonoBehaviour
 {
@@ -183,9 +184,9 @@ public class factory : MonoBehaviour
         }
 
         //  方块删除，检测鼠标右键，当前index下的方块进行一个删除的大动作，并从方块列表中删除该方块
-        if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.L))
+        if (Input.GetMouseButtonDown(1))
         {
-            DeleteCubeFunc();
+            DeleteCubeonMouseFunc();
         }
 
         // 队列左移，选择对应方块；若处于初始的方块则不再移动
@@ -270,6 +271,39 @@ public class factory : MonoBehaviour
             else
             {
                 lastActive = null;
+            }
+        }
+    }
+
+    void DeleteCubeonMouseFunc()
+    {
+        // 指定主相机向当前鼠标位置发射射线
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        // 声明hit变量用以存储碰撞信息
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit))
+        {
+            string str = hit.collider.transform.GetComponent<cube>().id;
+            if (nameCubeDict.ContainsKey(str))
+            {
+                MessageBox.Show();
+                MessageBox.confim = () => { 
+                    Destroy(nameCubeDict[str]);
+                    events.factoryDestory.Invoke(str);
+
+                    nameCubeDict.Remove(str);
+                    names.Remove(str);
+                    if (names.Count > 0)
+                    {
+                        lastActive = names[names.Count - 1];
+                        colorChange(nameCubeDict[lastActive], "activate");
+                    }
+                    else
+                    {
+                        lastActive = null;
+                    } ;
+                };
+                    
             }
         }
     }
@@ -425,8 +459,6 @@ public class factory : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         // 声明hit变量用以存储碰撞信息
         RaycastHit hit;
-        Debug.Log(able_generate);
-        Debug.Log(Physics.Raycast(ray, out hit));
         if (Physics.Raycast(ray, out hit) && able_generate)
         {
             return hit.point;

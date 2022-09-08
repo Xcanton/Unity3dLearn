@@ -18,7 +18,6 @@ public class MessBox : MonoBehaviour
     {
         Sure = GameObject.Find("ButtonGroup/Conform").GetComponent<Button>();
         Cancle = GameObject.Find("ButtonGroup/Cancle").GetComponent<Button>();
-        title = GameObject.Find("Title").GetComponent<Text>();
         Sure.onClick.AddListener(MessageBox.Sure);
         Cancle.onClick.AddListener(MessageBox.Cancle);
         Sure.transform.Find("Text").GetComponent<Text>().text = "х╥хо";
