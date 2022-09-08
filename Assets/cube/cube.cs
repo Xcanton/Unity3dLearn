@@ -57,7 +57,7 @@ public class cube : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit) && (GameObject.Find("Factory").GetComponent<factory>().status_index != (int)Status_enum.move || string.IsNullOrEmpty(GameObject.Find("Factory").GetComponent<factory>().lastActive)))
         {
             Debug.Log("Лїжа");
             Transform target_object = hit.collider.transform;

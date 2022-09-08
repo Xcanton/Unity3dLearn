@@ -82,7 +82,7 @@ public class factory : MonoBehaviour
     {
         if (cube_isactivate)
         {
-            if (!lastActive.Equals(null))
+            if (!string.IsNullOrEmpty(lastActive))
             {
                 colorChange(nameCubeDict[lastActive]);
                 nameCubeDict[lastActive].GetComponent<cube>().status = false;
@@ -113,21 +113,27 @@ public class factory : MonoBehaviour
         {
             status_index++;
             status_index %= System.Enum.GetNames(status_.GetType()).Length;
+            if (status_index == (int)Status_enum.move)
+            {
+                colorChange(nameCubeDict[lastActive]);
+                lastActive = null;
+            }
             events.dropdownChange.Invoke(status_index);
         }
 
 
         if (Input.GetMouseButtonDown(0))
         {
-            if (lastActive != null)
-            {
-                colorChange(nameCubeDict[lastActive]);
-                nameCubeDict[lastActive].GetComponent<cube>().status = false;
-            }
-
             switch ((Status_enum)int.Parse(status_index.ToString()))
             {
                 case Status_enum.generate:
+
+                    if (lastActive != null)
+                    {
+                        colorChange(nameCubeDict[lastActive]);
+                        nameCubeDict[lastActive].GetComponent<cube>().status = false;
+                    }
+
                     // 射线碰撞，返回碰撞到的坐标
                     Vector3 current_left_click = getMouseRayWorldVect();
                     //generate_cube(current_left_click.x, (current_left_click.y > 0.5) ? current_left_click.y : 0.5f, current_left_click.z);
@@ -148,6 +154,28 @@ public class factory : MonoBehaviour
                     }
                     break;
                 case Status_enum.select:
+                    break;
+                case Status_enum.move:
+                    Debug.Log(lastActive);
+                    if (lastActive == null)
+                    {
+                    }
+                    else
+                    {
+                        colorChange(nameCubeDict[lastActive], "activate");
+                        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                        RaycastHit hit;
+                        if (Physics.Raycast(ray, out hit))
+                        {
+                            Transform target_object = hit.collider.transform;
+                            if (target_object == GameObject.Find("Plane").transform || target_object == GameObject.Find("Cube").transform)
+                            {
+                                Vector3 temp = hit.point;
+                                temp.y += 0.5f;
+                                nameCubeDict[lastActive].transform.position = temp;
+                            }
+                        }
+                    }
                     break;
             }
 
@@ -421,7 +449,7 @@ public class factory : MonoBehaviour
     }
 
     // 修改材料材质的颜色
-    void colorChange(GameObject current, string
+    public void colorChange(GameObject current, string
         tobetype = "default")
     {
         // 恢复默认颜色
@@ -472,6 +500,27 @@ public class factory : MonoBehaviour
     public string getCubeName(string name)
     {
         return nameCubeDict[name].transform.name;
+    }
+
+    public int getFactoryStatus()
+    {
+        return status_index;
+    }
+
+    public void setFactoryStatus(Status_enum inpt)
+    {
+        switch (inpt)
+        {
+            case Status_enum.generate:
+                status_index = 0;
+                break;
+            case Status_enum.select:
+                status_index = 1;
+                break;
+            case Status_enum.move:
+                status_index = 2;
+                break;
+        }
     }
 
 }

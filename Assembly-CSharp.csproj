@@ -55,19 +55,20 @@
   <ItemGroup>
     <Compile Include="Assets\ui\ScrollViewItem.cs" />
     <Compile Include="Assets\test.cs" />
+    <Compile Include="Assets\ui\MessBoxReal.cs" />
     <Compile Include="Assets\cube\movement.cs" />
     <Compile Include="Assets\factory\factory_enum.cs" />
     <Compile Include="Assets\UnityEvent\Events.cs" />
     <Compile Include="Assets\ui\StatusDropdown.cs" />
     <Compile Include="Assets\UnityEvent\broadcast.cs" />
+    <Compile Include="Assets\ui\MessBox.cs" />
     <Compile Include="Assets\UnityEvent\Supervisor.cs" />
     <Compile Include="Assets\ui\Create.cs" />
     <Compile Include="Assets\cube\cube.cs" />
     <Compile Include="Assets\factory\factory.cs" />
-    <Compile Include="Assets\camera\mainCamera.cs" />
     <Compile Include="Assets\ui\ContentControl.cs" />
-    <Compile Include="Assets\ui\MessBox.cs" />
-    <Compile Include="Assets\ui\MessBoxReal.cs" />
+    <Compile Include="Assets\camera\mainCamera.cs" />
+    <Compile Include="Assets\ui\MouseController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
