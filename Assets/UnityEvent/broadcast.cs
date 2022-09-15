@@ -3,42 +3,47 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
-public class broadcast : MonoBehaviour
+
+
+namespace Meta
 {
-    // 定义事件
-    public Events events;
-    public string name;
-
-    private void Awake()
+    public class broadcast : MonoBehaviour
     {
-        name = "";
-    }
+        // 定义事件
+        public Events events;
+        public string name;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
+        private void Awake()
         {
-            getMouseRayObject();
+            name = "";
         }
-    }
 
-    void getMouseRayObject()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit))
+        // Start is called before the first frame update
+        void Start()
         {
-            Transform target_object = hit.collider.transform;
-            
-            if (target_object == transform)
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            if (Input.GetMouseButtonDown(0))
             {
-                events.CubeChange.Invoke(name, true);
+                getMouseRayObject();
+            }
+        }
+
+        void getMouseRayObject()
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit))
+            {
+                Transform target_object = hit.collider.transform;
+
+                if (target_object == transform)
+                {
+                    events.CubeChange.Invoke(name, true);
+                }
             }
         }
     }

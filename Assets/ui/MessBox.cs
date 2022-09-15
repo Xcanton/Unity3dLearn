@@ -3,30 +3,35 @@ using UnityEngine.UI;
 using UnityEngine;
 using Common;
 
-public class MessBox : MonoBehaviour
+
+namespace Meta
 {
-    public Text title;
-    public Button Sure;
-    public Button Cancle;
 
-    public int a;
-    public int b;
-    public int c;
-
-    // Start is called before the first frame update
-    void Start()
+    public class MessBox : MonoBehaviour
     {
-        Sure = GameObject.Find("ButtonGroup/Conform").GetComponent<Button>();
-        Cancle = GameObject.Find("ButtonGroup/Cancle").GetComponent<Button>();
-        Sure.onClick.AddListener(MessageBox.Sure);
-        Cancle.onClick.AddListener(MessageBox.Cancle);
-        Sure.transform.Find("Text").GetComponent<Text>().text = "确认";
-        Cancle.transform.Find("Text").GetComponent<Text>().text = "取消";
-    }
+        public Text title;
+        public Button Sure;
+        public Button Cancle;
 
-    // Update is called once per frame
-    void Update()
-    {
+        public int a;
+        public int b;
+        public int c;
 
+        // Start is called before the first frame update
+        void Start()
+        {
+            Sure = GameObject.Find("ButtonGroup/Conform").GetComponent<Button>();
+            Cancle = GameObject.Find("ButtonGroup/Cancle").GetComponent<Button>();
+            Sure.onClick.AddListener(MessageBox.Sure);
+            Cancle.onClick.AddListener(MessageBox.Cancle);
+            Sure.transform.Find("Text").GetComponent<Text>().text = "确认";
+            Cancle.transform.Find("Text").GetComponent<Text>().text = "取消";
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
     }
 }

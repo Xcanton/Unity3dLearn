@@ -1,0 +1,20 @@
+{
+    "Id": "",
+    "Version": "v1.0.8",
+    "Type": 0,
+    "AccessRight": 0,
+    "DownloadUrl": "",
+    "InstallPath": "Assets/QFramework/Framework/",
+    "IncludeFileOrFolders": [
+        "Assets/QFramework/Framework",
+        "Assets/QFramework/Toolkits"
+    ],
+    "DocUrl": "https://liangxiegame.com",
+    "Readme": {
+        "version": "v1.0.8",
+        "content": "* 修复 ActionKit.Repeat 在存放回缓存池时没有清空的问题(thomskjh 提供)",
+        "author": "liangxie",
+        "date": "2022 年 08 月 20 日 18:13",
+        "PackageId": ""
+    }
+}

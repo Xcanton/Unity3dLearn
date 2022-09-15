@@ -4,30 +4,35 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Create : MonoBehaviour
+namespace Meta
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        Button btn = GetComponent<Button>();
-        btn.onClick.AddListener(OnClick);
-        btn.GetComponentInChildren<Text>().text = "Create";
-    }
 
-    // Update is called once per frame
-    void Update()
+    public class Create : MonoBehaviour
     {
-    }
-
-    private void OnClick()
-    {
-        MessageBox.Show("请输入方块坐标");
-        MessageBox.confim_vec = (float a, float b, float c, string str) =>
+        // Start is called before the first frame update
+        void Start()
         {
-            //GameObject.Find("Factory").GetComponent<factory>().moveCube(new Vector3(a, b, c), transform.Find("Image/idText").GetComponent<Text>().text);
-            GameObject.Find("Factory").GetComponent<factory>().outer_generate(a,b,c, str);
-        };
-        
+            Button btn = GetComponent<Button>();
+            btn.onClick.AddListener(OnClick);
+            btn.GetComponentInChildren<Text>().text = "Create";
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+        }
+
+        private void OnClick()
+        {
+            MessageBox.Show("请输入方块坐标");
+            MessageBox.confim_vec = (float a, float b, float c, string str) =>
+            {
+                //GameObject.Find("Factory").GetComponent<factory>().moveCube(new Vector3(a, b, c), transform.Find("Image/idText").GetComponent<Text>().text);
+                GameObject.Find("Factory").GetComponent<factory>().outer_generate(a, b, c, str);
+            };
+
+        }
+
     }
 
 }

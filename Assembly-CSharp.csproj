@@ -53,26 +53,160 @@
     <UnityVersion>2020.2.6f1c1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Assets\QFramework\Framework\Examples\10.ShootingEditor2D\Scripts\ViewController\Gameplay\Gun.cs" />
     <Compile Include="Assets\ui\ScrollViewItem.cs" />
-    <Compile Include="Assets\test.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\7.PointPointPoint\Scripts\Event\GameStartEvent.cs" />
+    <Compile Include="Assets\ui\DeleteConfirmNotification.cs" />
     <Compile Include="Assets\ui\MessBoxReal.cs" />
-    <Compile Include="Assets\cube\movement.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\10.ShootingEditor2D\Tests\TimeSystem\TimeSystemTest.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\7.PointPointPoint\Scripts\Game\Enemy.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\7.PointPointPoint\Scripts\UI\GamePanel.cs" />
+    <Compile Include="Assets\QFramework\Toolkits\UIKit\Example\0.Basic\Scripts\UI\UIBasicPanel\UIAboutSubPanel.cs" />
+    <Compile Include="Assets\QFramework\Toolkits\UIKit\Example\3.Stack\Scripts\UI\UIStackPanel2.Designer.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\7.PointPointPoint\Scripts\Command\MissCommand.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\10.ShootingEditor2D\Scripts\ViewController\UI\UIController.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\6.ArchitectureInHeart\ArchitectureInHeartExample.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\10.ShootingEditor2D\Scripts\ViewController\UI\UIGamePass.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\11.SnakeGame\Codes\Class\VernierArray.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\7.PointPointPoint\Scripts\Game\ErrorArea.cs" />
+    <Compile Include="Assets\QFramework\Toolkits\AudioKit\Example\1.CustomLoader\CustomAudioLoaderExample.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\10.ShootingEditor2D\Scripts\ViewController\Gameplay\Enemy.cs" />
     <Compile Include="Assets\factory\factory_enum.cs" />
-    <Compile Include="Assets\UnityEvent\Events.cs" />
-    <Compile Include="Assets\ui\StatusDropdown.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\0.CounterApp\Scripts\CounterAppController.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\10.ShootingEditor2D\Scripts\ViewController\Gameplay\SupplyStation.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\10.ShootingEditor2D\Scripts\System\TimeSystem\ITimeSystem.cs" />
+    <Compile Include="Assets\QFramework\Toolkits\UIKit\Tests\LoadImagePrefabTest\Scripts\UIPanelWithImagePrefabExample.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\10.ShootingEditor2D\Scripts\System\GunSystem\GunInfo.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\11.SnakeGame\Codes\System\TimeSystem.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\11.SnakeGame\Codes\System\InputSystem.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\7.PointPointPoint\Scripts\Game\Game.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\10.ShootingEditor2D\Scripts\Command\ReloadCommand.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\7.PointPointPoint\Scripts\System\ICountDownSystem.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\10.ShootingEditor2D\Scripts\ViewController\LevelEditor\LevelEditor.cs" />
+    <Compile Include="Assets\QFramework\Toolkits\UIKit\Tests\LoadImagePrefabTest\Scripts\UI\UIPanelWithImagePrefab.Designer.cs" />
+    <Compile Include="Assets\QFramework\Toolkits\UIKit\Example\4.MultiPanelExample\MultiPanelExample.cs" />
+    <Compile Include="Assets\QFramework\Toolkits\ResKit\Example\0.BasicUsage\ResKitExample.cs" />
+    <Compile Include="Assets\Scripts\Scripts\UI\bagpack\Menu.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\10.ShootingEditor2D\Scripts\Command\FullBulletCommand.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\7.PointPointPoint\Scripts\UI\UI.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\11.SnakeGame\Codes\Class\Snake.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\10.ShootingEditor2D\Scripts\ViewController\Gameplay\Trigger2DCheck.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\7.PointPointPoint\Scripts\Event\GamePassEvent.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\10.ShootingEditor2D\Scripts\Command\AddBulletCommand.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\1.QueryExample\QueryExampleController.cs" />
+    <Compile Include="Assets\Scripts\Scripts\UI\bagpack.cs" />
+    <Compile Include="Assets\QFramework\Toolkits\UIKit\Example\0.Basic\Scripts\UI\UIBasicPanel.cs" />
+    <Compile Include="Assets\Scripts\Scripts\UI\UIApp.cs" />
     <Compile Include="Assets\UnityEvent\broadcast.cs" />
-    <Compile Include="Assets\ui\MessBox.cs" />
-    <Compile Include="Assets\UnityEvent\Supervisor.cs" />
-    <Compile Include="Assets\ui\MouseController.cs" />
+    <Compile Include="Assets\QFramework\Toolkits\UIKit\Example\3.Stack\Scripts\UI\UIStackPanel2.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\10.ShootingEditor2D\Scripts\Query\MaxBulletCountQuery.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\11.SnakeGame\Codes\View\GameStart.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\10.ShootingEditor2D\Scripts\ViewController\Gameplay\CameraController.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\10.ShootingEditor2D\Scripts\ViewController\ShootingEditor2DController.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\7.PointPointPoint\Scripts\Utility\IStorage.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\7.PointPointPoint\Scripts\Event\OnCountDownEndEvent.cs" />
+    <Compile Include="Assets\QFramework\Toolkits\SupportOldQF\UIKitWithResKitInit.cs" />
+    <Compile Include="Assets\QFramework\Toolkits\UIKit\Example\2.OpenPanelAsync\OpenPanelAsyncExample.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\7.PointPointPoint\Scripts\PointGame.cs" />
+    <Compile Include="Assets\QFramework\Toolkits\ResKit\Example\4.ResLoaderRelateUnloadAsset\ResLoaderRelateUnloadAssetExample.cs" />
     <Compile Include="Assets\ui\Create.cs" />
     <Compile Include="Assets\cube\cube.cs" />
+    <Compile Include="Assets\QFramework\Toolkits\ResKit\Example\7.LocalImageExmaple\ImageLoaderExample.cs" />
+    <Compile Include="Assets\QFramework\Toolkits\UIKit\Tests\LoadImagePrefabTest\Scripts\UI\UIPanelWithImagePrefab.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\10.ShootingEditor2D\Scripts\ViewController\UI\UIGameOver.cs" />
+    <Compile Include="Assets\Scripts\Scripts\UI\bagpack\Menu.Designer.cs" />
+    <Compile Include="Assets\Scripts\Scripts\UI\bagpack\InfoItem.Designer.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\10.ShootingEditor2D\Scripts\ViewController\LevelEditor\LevelPlayer.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\10.ShootingEditor2D\Scripts\Model\IGunConfigModel.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\7.PointPointPoint\Scripts\Command\StartGameCommand.cs" />
+    <Compile Include="Assets\QFramework\Toolkits\AudioKit\Example\0.Basic\AudioExample.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\10.ShootingEditor2D\Scripts\ViewController\UI\UIGameStart.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\7.PointPointPoint\Scripts\Model\GameModel.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\11.SnakeGame\Codes\View\SnakeGame.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\10.ShootingEditor2D\Scripts\ViewController\Gameplay\NextLevel.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\10.ShootingEditor2D\Scripts\Command\HurtPlayerCommand.cs" />
+    <Compile Include="Assets\QFramework\Toolkits\UIKit\Example\3.Stack\UIKitStackExample.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\4.BindableProperty\BindablePropertyExample.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\11.SnakeGame\Codes\System\GridCreateSystem.cs" />
+    <Compile Include="Assets\QFramework\Toolkits\UIKit\Example\11.ManagerOfManagersExample\ManagerOfManagersExample.cs" />
+    <Compile Include="Assets\test.cs" />
+    <Compile Include="Assets\QFramework\Toolkits\UIKit\Example\1.InitAndCallAPIs\InitAndCallApisExample.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\10.ShootingEditor2D\Scripts\Command\PickGunCommand.cs" />
+    <Compile Include="Assets\ui\messageboxdelete.cs" />
+    <Compile Include="Assets\cube\movement.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\3.EasyEvent\EasyEventExample.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\7.PointPointPoint\Scripts\Command\KillEnemyCommand.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\7.PointPointPoint\Scripts\Event\OnEnemyKillEvent.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\2.TypeEventSystem\1.InheritEvent\TypeEventSystemInheritEventExample.cs" />
+    <Compile Include="Assets\QFramework\Toolkits\UIKit\Example\11.ManagerOfManagersExample\MgrId.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\11.SnakeGame\Codes\View\CommonMono.cs" />
+    <Compile Include="Assets\QFramework\Toolkits\SupportOldQF\UIKitCreateService\ResKitUIPanelTester.cs" />
+    <Compile Include="Assets\UnityEvent\Events.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\7.PointPointPoint\Scripts\System\IScoreSystem.cs" />
+    <Compile Include="Assets\QFramework\Toolkits\ResKit\Example\6.NetImageExample\NetImageExample.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\5.IOCContainer\IOCContainerExample.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\7.PointPointPoint\Scripts\Event\OnMissEvent.cs" />
+    <Compile Include="Assets\QFramework\Toolkits\UIKit\Example\4.MultiPanelExample\Scripts\UI\UIMultiPanel.Designer.cs" />
+    <Compile Include="Assets\QFramework\Toolkits\UIKit\Example\3.Stack\Scripts\UI\UIStackPanel1.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\10.ShootingEditor2D\Scripts\ViewController\Gameplay\AttackPlayer.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\10.ShootingEditor2D\Scripts\ShootingEditor2D.cs" />
+    <Compile Include="Assets\QFramework\Toolkits\UIKit\Example\5.CustomPanelLoader\CustomPanelLoaderExample.cs" />
+    <Compile Include="Assets\QFramework\Toolkits\ResKit\Example\1.AsyncLoad\AsyncLoadExample.cs" />
+    <Compile Include="Assets\Scripts\Scripts\UI\bagpack.Designer.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\11.SnakeGame\Codes\Command\InitGameCommand.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\10.ShootingEditor2D\Scripts\System\IStatSystem.cs" />
+    <Compile Include="Assets\QFramework\Toolkits\ResKit\Example\RefCounter\RefCounterExample.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\11.SnakeGame\Codes\System\SnakeCreateSystem.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\2.TypeEventSystem\0.Basic\TypeEventSystemBasicExample.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\10.ShootingEditor2D\Scripts\Model\IPlayerModel.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\7.PointPointPoint\Scripts\System\IAchievementSystem.cs" />
+    <Compile Include="Assets\QFramework\Toolkits\ResKit\Example\8.CustomResExample\CustomResExample.cs" />
+    <Compile Include="Assets\ui\StatusDropdown.cs" />
+    <Compile Include="Assets\Scripts\Scripts\UI\bagpack\InfoItem.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\10.ShootingEditor2D\Scripts\ViewController\Gameplay\BulletPickItem.cs" />
+    <Compile Include="Assets\QFramework\Toolkits\UIKit\Example\11.ManagerOfManagersExample\EnemyEvent.cs" />
+    <Compile Include="Assets\QFramework\Toolkits\ResKit\Example\2.LoadSceneExample\LoadSceneExample.cs" />
+    <Compile Include="Assets\QFramework\Toolkits\UIKit\Example\0.Basic\Scripts\UI\UIBasicPanel.Designer.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\2.TypeEventSystem\2.UnRegister\TypeEventSystemUnRegisterExample.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\10.ShootingEditor2D\Scripts\Command\KillEnemyCommand.cs" />
+    <Compile Include="Assets\QFramework\Toolkits\UIKit\Example\11.ManagerOfManagersExample\EnemyManager.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\10.ShootingEditor2D\Scripts\Utility\RectHelper.cs" />
+    <Compile Include="Assets\ui\MessBox.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\10.ShootingEditor2D\Scripts\ViewController\Gameplay\Bullet.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\7.PointPointPoint\Scripts\UI\GameStartPanel.cs" />
+    <Compile Include="Assets\QFramework\Toolkits\UIKit\Example\4.MultiPanelExample\Scripts\UI\UIMultiPanel.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\10.ShootingEditor2D\Scripts\Command\ShootCommand.cs" />
+    <Compile Include="Assets\QFramework\Toolkits\UIKit\Example\3.Stack\Scripts\UI\UIStackPanel1.Designer.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\11.SnakeGame\Codes\System\SnakeSystem.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\0.CounterApp\Scripts\EditorCounterAppWindow.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\2.TypeEventSystem\3.InterfaceEventMode\InterfaceEventModeExample.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\11.SnakeGame\Codes\System\GridNodeSystem.cs" />
+    <Compile Include="Assets\UnityEvent\Supervisor.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\11.SnakeGame\Codes\Class\IEvent.cs" />
+    <Compile Include="Assets\ui\MouseController.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\10.ShootingEditor2D\Scripts\Command\ShiftGunCommand.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\7.PointPointPoint\Scripts\UI\GamePassPanel.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\10.ShootingEditor2D\Scripts\ViewController\Gameplay\Player.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\10.ShootingEditor2D\Scripts\ViewController\Gameplay\GunPickItem.cs" />
+    <Compile Include="Assets\QFramework\Toolkits\UIKit\Example\11.ManagerOfManagersExample\Enemy.cs" />
+    <Compile Include="Assets\QFramework\Toolkits\ResKit\Example\3.LoadResourcesResExample\LoadResourcesResExample.cs" />
     <Compile Include="Assets\factory\factory.cs" />
     <Compile Include="Assets\ui\ContentControl.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\7.PointPointPoint\Scripts\Command\BuyLifeCommand.cs" />
+    <Compile Include="Assets\QFramework\Toolkits\ResKit\Example\5.LoadSpriteAtlasExample\TestSpriteAtlas.cs" />
+    <Compile Include="Assets\QFramework\Toolkits\UIKit\Example\0.Basic\Scripts\UI\UIBasicPanel\UIAboutSubPanel.Designer.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\10.ShootingEditor2D\Scripts\System\GunSystem\IGunSystem.cs" />
     <Compile Include="Assets\camera\mainCamera.cs" />
-    <Compile Include="Assets\ui\DeleteConfirmNotification.cs" />
-    <Compile Include="Assets\ui\messageboxdelete.cs" />
+    <Compile Include="Assets\QFramework\Toolkits\SupportOldQF\AudioKitWithResKitInit.cs" />
+    <Compile Include="Assets\Scripts\Scripts\UI\emptymap.Designer.cs" />
+    <Compile Include="Assets\Scripts\Scripts\UI\emptymap.cs" />
+    <Compile Include="Assets\Scripts\Scripts\UI\emptyBoard.Designer.cs" />
+    <Compile Include="Assets\Scripts\Scripts\UI\emptyBoard.cs" />
   </ItemGroup>
   <ItemGroup>
+     <None Include="Assets\QFramework\Framework\Examples\10.ShootingEditor2D\Scenes\please add these scenes to Build Setings.txt" />
+     <None Include="Assets\QFramework\Framework\Examples\10.ShootingEditor2D\Scenes\请将这些场景添加到 Build Setings 中.txt" />
+     <None Include="Assets\QFramework\Framework\Examples\10.ShootingEditor2D\LevelFile\LevelFileTest.xml" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
@@ -294,6 +428,9 @@
     </Reference>
     <Reference Include="UnityEditor.UnityConnectModule">
       <HintPath>C:\Program Files\Unity\Editor\Data\Managed\UnityEngine\UnityEditor.UnityConnectModule.dll</HintPath>
+    </Reference>
+    <Reference Include="Markdig">
+      <HintPath>Assets\QFramework\Toolkits\_CoreKit\PackageKit\Markdown\Markdig.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:\Program Files\Unity\Editor\Data\NetStandard\ref\2.0.0\netstandard.dll</HintPath>
@@ -669,6 +806,34 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="QFramework.CoreKit.csproj">
+      <Project>{3E7DCDBF-8A14-BD0E-6431-5217649588F6}</Project>
+      <Name>QFramework.CoreKit</Name>
+    </ProjectReference>
+    <ProjectReference Include="ResKit.csproj">
+      <Project>{F3D50260-6C25-B336-6955-671A88FDBF95}</Project>
+      <Name>ResKit</Name>
+    </ProjectReference>
+    <ProjectReference Include="AudioKit.csproj">
+      <Project>{81E03FB3-5C99-3C47-E741-0D0E0F58F40D}</Project>
+      <Name>AudioKit</Name>
+    </ProjectReference>
+    <ProjectReference Include="UIKit.Editor.csproj">
+      <Project>{BAE69C0C-FB29-40C4-96C5-7361AA941370}</Project>
+      <Name>UIKit.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="QFramework.csproj">
+      <Project>{637E5254-33EF-76CA-DE05-BD94C0E2AB20}</Project>
+      <Name>QFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="UIKit.csproj">
+      <Project>{04ED5EAF-DD89-68DB-E982-CDB1DA15E0C1}</Project>
+      <Name>UIKit</Name>
+    </ProjectReference>
+    <ProjectReference Include="ResKit.Editor.csproj">
+      <Project>{FE508873-3FFD-5235-1671-9FF7FB7C2930}</Project>
+      <Name>ResKit.Editor</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

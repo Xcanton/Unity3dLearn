@@ -5,46 +5,49 @@ using UnityEngine.UI;
 using System;
 
 
-public class StatusDropdown : MonoBehaviour
+namespace Meta
 {
-    public Events events = new Events();
-
-    // Start is called before the first frame update
-    void Start()
+    public class StatusDropdown : MonoBehaviour
     {
-        // 获取当前下拉列表
-        Dropdown dropdown = GetComponent<Dropdown>();
+        public Events events = new Events();
 
-        // 初始化下拉列表
-        List<Dropdown.OptionData> options = dropdown.options;
-        options.Clear();
-        foreach( Status_enum step in Enum.GetValues(typeof(Status_enum)))
+        // Start is called before the first frame update
+        void Start()
         {
-            options.Add(new Dropdown.OptionData(step.ToString()));
+            // 获取当前下拉列表
+            Dropdown dropdown = GetComponent<Dropdown>();
+
+            // 初始化下拉列表
+            List<Dropdown.OptionData> options = dropdown.options;
+            options.Clear();
+            foreach (Status_enum step in Enum.GetValues(typeof(Status_enum)))
+            {
+                options.Add(new Dropdown.OptionData(step.ToString()));
+            }
+            dropdown.options = options;
+
+            // 记录上一状态，用作判断选择
+            //string former_status = options[dropdown.value].ToString();
+
+            // 下拉框有参监听
+            dropdown.onValueChanged.AddListener((int index) => dropdownItemChanged(index));
+
+            // 
+            events.StatusChange.AddListener(GameObject.Find("Factory").GetComponent<factory>().dropdownchange);
+
+            //
+            GameObject.Find("Factory").GetComponent<factory>().events.dropdownChange.AddListener((int value) => dropdown.value = value);
         }
-        dropdown.options = options;
 
-        // 记录上一状态，用作判断选择
-        //string former_status = options[dropdown.value].ToString();
+        // Update is called once per frame
+        void Update()
+        {
 
-        // 下拉框有参监听
-        dropdown.onValueChanged.AddListener((int index) => dropdownItemChanged(index));
+        }
 
-        // 
-        events.StatusChange.AddListener(GameObject.Find("Factory").GetComponent<factory>().dropdownchange);
-
-        //
-        GameObject.Find("Factory").GetComponent<factory>().events.dropdownChange.AddListener((int value) => dropdown.value = value);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void dropdownItemChanged(int index)
-    {
-        events.StatusChange.Invoke(index);
+        private void dropdownItemChanged(int index)
+        {
+            events.StatusChange.Invoke(index);
+        }
     }
 }
