@@ -81,8 +81,7 @@ namespace Meta
 
             // 镜头左右移动
 
-            float menu_wide = GameObject.Find("Canvas/Menu_Image").GetComponent<RectTransform>().rect.width;
-            float menu_x = Camera.main.WorldToScreenPoint(GameObject.Find("Canvas/Menu_Image").GetComponent<Transform>().position).x;
+            float menu_wide = Screen.width;
             distance = (-5 <= x_move && x_move <= 5) ? ((menu_wide < xleft && xleft < menu_wide + effect_pi_range) || xright < effect_pi_range) ? current_diff[0] : 0f : (x_move < 0) ? (xright < effect_pi_range) ? current_diff[0] : 0 : (xleft < effect_pi_range) ? current_diff[0] : 0;
             //xleft < effect_pi_range
             if (distance != 0)

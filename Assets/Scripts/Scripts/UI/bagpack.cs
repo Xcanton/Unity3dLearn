@@ -40,20 +40,35 @@ namespace QFramework.CubeUI
             // °ó¶¨¼àÌý
             Menu.Create_cube.onClick.AddListener(() =>
 			{
+				var cube_object = GameObject.Find("Factory").GetComponent<factory>().outer_generate_return();
                 mData.Model.mCubeItems.Add(new cubeInfo()
                 {
-                    cube_name = "",
-                    cube_id = "",
-                    cubeLoc = new cubeLoc(0f, 0f, 0f),
-                    is_selected = false
+                    cube_name = cube_object.name,
+                    cube_id = cube_object.GetComponent<cube>().id,
+                    cubeLoc = new cubeLoc(cube_object.transform.position.x, cube_object.transform.position.y, cube_object.transform.position.z),
+                    is_selected = true
                 });
                 Debug.Log(mData.Model.mCubeItems);
                 Debug.Log(mData.Model.mCubeItems.Count());
 
                 OnDataChange();
             });
+			Debug.Log("±³°ü¹Ò¼àÌý");
+			GameObject.Find("Factory").GetComponent<factory>().events.factoryGenerate.AddListener((string id, string name, Vector3 loc_vect) =>
+			{
+				mData.Model.mCubeItems.Add(new cubeInfo()
+				{
+					cube_id = id,
+					cube_name = name,
+					cubeLoc = new cubeLoc(loc_vect.x, loc_vect.y, loc_vect.z),
+					is_selected=true
+				});
 
-		}
+                OnDataChange();
+            });
+
+
+        }
 
 		void OnDataChange()
 		{

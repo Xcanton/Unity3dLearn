@@ -14,7 +14,7 @@ namespace Meta
         void Start()
         {
             item = (GameObject)Resources.Load("ScrollViewItem");
-            GameObject.Find("Factory").GetComponent<factory>().events.factoryGenerate.AddListener(generate);
+            //GameObject.Find("Factory").GetComponent<factory>().events.factoryGenerate.AddListener(generate);
         }
 
         // Update is called once per frame

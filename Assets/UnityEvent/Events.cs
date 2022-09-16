@@ -14,7 +14,7 @@ namespace Meta
         public UnityEvent<string> itemDelete = new UnityEvent<string>();
         public UnityEvent<int> dropdownChange = new UnityEvent<int>();
 
-        public UnityEvent<string, string> factoryGenerate = new UnityEvent<string, string>();
+        public UnityEvent<string, string, Vector3> factoryGenerate = new UnityEvent<string, string, Vector3>();
         public UnityEvent<string> factoryDestory = new UnityEvent<string>();
 
         public UnityEvent<Vector3> cubeChangePosition = new UnityEvent<Vector3>();

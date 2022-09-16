@@ -9,7 +9,8 @@ namespace QFramework.CubeUI
     {
         public cubeList mModel;
         // Start is called before the first frame update
-        void Start()
+
+        private void Awake()
         {
 
             ResKit.Init();
@@ -17,6 +18,9 @@ namespace QFramework.CubeUI
             UIKit.OpenPanel<bagpack>(new bagpackData() { Model = mModel });
             UIKit.OpenPanel<emptymap>(new emptymapData() );
             UIKit.OpenPanel<emptyBoard>(new emptyBoardData() );
+        }
+        void Start()
+        {
         }
 
         // Update is called once per frame

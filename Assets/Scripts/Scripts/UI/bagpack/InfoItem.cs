@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using QFramework;
 using static QFramework.CubeUI.bagpack;
+using Meta;
 
 namespace QFramework.CubeUI
 {
@@ -15,7 +16,9 @@ namespace QFramework.CubeUI
 	{
 		private void Awake()
 		{
-		}
+			delete_button.transform.GetComponentInChildren<Text>().text = "删除";
+
+        }
 
 		protected override void OnBeforeDestroy()
 		{
@@ -33,14 +36,17 @@ namespace QFramework.CubeUI
 
 			delete_button.onClick.AddListener(() =>
 			{
+                GameObject.Find("Factory").GetComponent<factory>().itemDelete(info_item.cube_id);
+
                 SendMsg(new DeleteCubeMsg(info_item));
 				Destroy(gameObject);
             });
 
 			background_click.onClick.AddListener(() =>
 			{
-				Debug.Log("诶呀我被点了");
-			});
+				GameObject.Find("Factory").GetComponent<factory>().ViewPointItemClicked(info_item.cube_id);
+
+            });
 
         }
 

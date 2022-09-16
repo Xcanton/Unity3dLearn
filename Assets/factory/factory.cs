@@ -48,6 +48,7 @@ namespace Meta
         // Start is called before the first frame update
         void Start()
         {
+            Debug.Log("工厂》》》》恢复");
             // 从磁盘中恢复上一次正常结束时的状态
             // 防止空状态，通过temp暂存，以防后续index报错
             string temp_dict = PlayerPrefs.GetString("nameCubeDict", "");
@@ -117,11 +118,13 @@ namespace Meta
             {
                 status_index++;
                 status_index %= System.Enum.GetNames(status_.GetType()).Length;
-                if (status_index == (int)Status_enum.move)
+                Debug.Log(lastActive);
+                if (status_index == (int)Status_enum.move && !string.IsNullOrEmpty(lastActive))
                 {
                     colorChange(nameCubeDict[lastActive]);
                     lastActive = null;
                 }
+                Debug.Log(status_index);
                 events.dropdownChange.Invoke(status_index);
             }
 
@@ -160,7 +163,6 @@ namespace Meta
                     case Status_enum.select:
                         break;
                     case Status_enum.move:
-                        Debug.Log(lastActive);
                         if (lastActive == null)
                         {
                         }
@@ -260,7 +262,6 @@ namespace Meta
             }
             if (str != null)
             {
-                Debug.Log(str);
                 Destroy(nameCubeDict[str]);
                 events.factoryDestory.Invoke(str);
 
@@ -322,7 +323,7 @@ namespace Meta
             temp.GetComponent<cube>().id = name;
             temp.GetComponent<cube>().status = true;
 
-            events.factoryGenerate.Invoke(name, temp.name);
+            events.factoryGenerate.Invoke(name, temp.name, new Vector3(x, y, z));
 
             temp.GetComponent<cube>().events.CubeChange.AddListener(RaySelected);
             return temp;
@@ -330,6 +331,7 @@ namespace Meta
 
         GameObject generate_cube(float x, float y, float z, string name, string str)
         {
+            Debug.Log("生成方块");
             // 从预制体实例化一个对象
             GameObject temp = UnityEngine.Object.Instantiate(nomalCube);
             //Debug.Log("实例化"+ Time.frameCount);
@@ -337,7 +339,7 @@ namespace Meta
             temp.GetComponent<cube>().id = name;
             temp.GetComponent<cube>().status = true;
 
-            events.factoryGenerate.Invoke(name, temp.name);
+            events.factoryGenerate.Invoke(name, temp.name, new Vector3(x, y, z));
 
             temp.GetComponent<cube>().events.CubeChange.AddListener(RaySelected);
             temp.transform.name = str;
